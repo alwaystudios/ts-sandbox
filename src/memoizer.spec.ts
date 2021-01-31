@@ -1,8 +1,10 @@
+type Unary = (val: number) => number
+
 const FIBONACCI = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
-const fibonacci = (val: number): number => (val < 2 ? val : fibonacci(val - 1) + fibonacci(val - 2))
+const fibonacci: Unary = (val: number) => (val < 2 ? val : fibonacci(val - 1) + fibonacci(val - 2))
 
-const memoizer = (memo: number[], formula: Function, onMemo?: Function) => {
+const memoizer = (memo: number[], formula: Function, onMemo?: Function): Unary => {
   const recur = (val: number) => {
     let result = memo[val]
     if (typeof (result as any) !== 'number') {

@@ -12,7 +12,7 @@ const data: Data[] = [...Array(3)].map((_, index) => ({
 }))
 
 type Keys = keyof typeof data[0]
-const KeysArr: Array<Keys> = Object.keys(data[0]) as Keys[]
+const keysArr: Array<Keys> = Object.keys(data[0]) as Keys[]
 
 type ValueOf<T> = T[keyof T]
 type BaseItem = Record<string, any>
@@ -45,7 +45,7 @@ const genericStringOverride = <T extends BaseItem, K extends Array<keyof T>>(
   )
 
 test('generic string override', () => {
-  expect(genericStringOverride(data, KeysArr, overrides)).toEqual([
+  expect(genericStringOverride(data, keysArr, overrides)).toEqual([
     'index:0',
     'name:item 0',
     '0',
