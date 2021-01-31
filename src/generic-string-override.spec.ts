@@ -3,8 +3,13 @@ import { unnest } from 'ramda'
 type Data = {
   index: number
   name: string
+  noOverride: number
 }
-const data: Data[] = [...Array(10)].map((_, index) => ({ index, name: `item ${index}` }))
+const data: Data[] = [...Array(3)].map((_, index) => ({
+  index,
+  name: `item ${index}`,
+  noOverride: index,
+}))
 
 type Keys = keyof typeof data[0]
 const KeysArr: Array<Keys> = Object.keys(data[0]) as Keys[]
@@ -21,6 +26,7 @@ type ToStringFnOverrides<T> = {
 }
 const overrides: ToStringFnOverrides<Data> = {
   name: (value: string) => `name:${value}`,
+  index: (value: number) => `index:${value}`,
 }
 
 const genericStringOverride = <T extends BaseItem, K extends Array<keyof T>>(
@@ -40,25 +46,14 @@ const genericStringOverride = <T extends BaseItem, K extends Array<keyof T>>(
 
 test('generic string override', () => {
   expect(genericStringOverride(data, KeysArr, overrides)).toEqual([
-    '0',
+    'index:0',
     'name:item 0',
-    '1',
+    '0',
+    'index:1',
     'name:item 1',
-    '2',
+    '1',
+    'index:2',
     'name:item 2',
-    '3',
-    'name:item 3',
-    '4',
-    'name:item 4',
-    '5',
-    'name:item 5',
-    '6',
-    'name:item 6',
-    '7',
-    'name:item 7',
-    '8',
-    'name:item 8',
-    '9',
-    'name:item 9',
+    '2',
   ])
 })
