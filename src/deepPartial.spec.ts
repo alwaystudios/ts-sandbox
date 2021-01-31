@@ -1,7 +1,5 @@
 import { dissoc } from 'ramda'
 
-type DeepPartial<T> = { [K in keyof T]?: DeepPartial<T[K]> }
-
 type Data = {
   key1: string
   deepKey: {

@@ -18,7 +18,7 @@
     "preserveConstEnums": true,
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "globals.d.ts"],
   "awesomeTypescriptLoaderOptions": {
     "useBabel": false,
     "useCache": true
