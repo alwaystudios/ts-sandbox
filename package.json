@@ -13,8 +13,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn format && yarn test",
-      "pre-push": "yarn build"
+      "pre-commit": "yarn lint && yarn format && yarn test --coverage",
+      "pre-push": "yarn build && yarn types"
     }
   },
   "devDependencies": {
