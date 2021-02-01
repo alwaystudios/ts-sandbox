@@ -15,8 +15,7 @@ Function.prototype.method = function (name: string, func: Function) {
 
 describe('prototypes', () => {
   it('extend a prototype with a new method', () => {
-    Number.method('integer', function () {
-      /** @ts-ignore */
+    Number.method('integer', function (this: number) {
       return Math[this < 0 ? 'ceil' : 'floor'](this)
     })
 
