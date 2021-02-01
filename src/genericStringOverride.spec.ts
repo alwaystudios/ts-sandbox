@@ -11,7 +11,7 @@ const data: Data[] = [...Array(3)].map((_, index) => ({
   noOverride: index,
 }))
 
-type Keys = keyof typeof data[0]
+type Keys = keyof typeof data[0] // or just typeof Data
 const keysArr: Array<Keys> = Object.keys(data[0]) as Keys[]
 
 type ValueOf<T> = T[keyof T]
