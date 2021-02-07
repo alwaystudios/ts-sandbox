@@ -6,3 +6,4 @@
 - advanced types - https://www.typescriptlang.org/docs/handbook/advanced-types.html
 - ts playground - https://www.typescriptlang.org/play
 - type coverage - https://github.com/plantain-00/type-coverage#readme
+- design patterns - https://github.com/PacktPublishing/Node.js-Design-Patterns-Third-Edition
