@@ -21,25 +21,46 @@ class AlphabetIterator {
 const ALPHABET = [...new AlphabetIterator()]
 console.log(ALPHABET)
 
-test('iterator for..of', () => {
-  const iterator = new AlphabetIterator()
-  const alphabet: string[] = []
+describe('iterators', () => {
+  it('iterator for..of', () => {
+    const iterator = new AlphabetIterator()
+    const alphabet: string[] = []
 
-  for (const code of iterator) {
-    alphabet.push(code!)
-  }
+    for (const code of iterator) {
+      alphabet.push(code!)
+    }
 
-  expect(alphabet).toEqual(ALPHABET)
+    expect(alphabet).toEqual(ALPHABET)
+  })
+
+  it('iterator basic', () => {
+    const iterator = new AlphabetIterator()[Symbol.iterator]()
+    const alphabet: string[] = []
+    let iterationResult = iterator.next()
+    while (!iterationResult.done) {
+      alphabet.push(iterationResult.value!)
+      iterationResult = iterator.next()
+    }
+
+    expect(alphabet).toEqual(ALPHABET)
+  })
 })
 
-test('iterator basic', () => {
-  const iterator = new AlphabetIterator()[Symbol.iterator]()
-  const alphabet: string[] = []
-  let iterationResult = iterator.next()
-  while (!iterationResult.done) {
-    alphabet.push(iterationResult.value!)
-    iterationResult = iterator.next()
+describe('generators', () => {
+  function* alphbetGenerator() {
+    let currCode = A_CHAR_CODE
+    while (currCode <= Z_CHAR_CODE) {
+      yield String.fromCharCode(currCode++)
+    }
+    return
   }
 
-  expect(alphabet).toEqual(ALPHABET)
+  it('generator for..of', () => {
+    const alphabet: string[] = []
+    for (const code of alphbetGenerator()) {
+      alphabet.push(code)
+    }
+
+    expect(alphabet).toEqual(ALPHABET)
+  })
 })
