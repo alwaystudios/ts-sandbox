@@ -1,24 +1,39 @@
 const A_CHAR_CODE = 65
 const Z_CHAR_CODE = 90
+class AlphabetIterator {
+  [Symbol.iterator]() {
+    let currCode = A_CHAR_CODE
 
-const createAlphabetIterator = () => {
-  let currCode = A_CHAR_CODE
+    return {
+      next() {
+        const currChar = String.fromCodePoint(currCode)
+        if (currCode > Z_CHAR_CODE) {
+          return { done: true }
+        }
 
-  return {
-    next() {
-      const currChar = String.fromCodePoint(currCode)
-      if (currCode > Z_CHAR_CODE) {
-        return { done: true }
-      }
-
-      currCode++
-      return { value: currChar, done: false }
-    },
+        currCode++
+        return { value: currChar, done: false }
+      },
+    }
   }
 }
 
-test('iterator', () => {
-  const iterator = createAlphabetIterator()
+const ALPHABET = [...new AlphabetIterator()]
+console.log(ALPHABET)
+
+test('iterator for..of', () => {
+  const iterator = new AlphabetIterator()
+  const alphabet: string[] = []
+
+  for (const code of iterator) {
+    alphabet.push(code!)
+  }
+
+  expect(alphabet).toEqual(ALPHABET)
+})
+
+test('iterator basic', () => {
+  const iterator = new AlphabetIterator()[Symbol.iterator]()
   const alphabet: string[] = []
   let iterationResult = iterator.next()
   while (!iterationResult.done) {
@@ -26,32 +41,5 @@ test('iterator', () => {
     iterationResult = iterator.next()
   }
 
-  expect(alphabet).toEqual([
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-  ])
+  expect(alphabet).toEqual(ALPHABET)
 })
