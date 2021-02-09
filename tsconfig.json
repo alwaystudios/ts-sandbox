@@ -19,7 +19,7 @@
     "resolveJsonModule": true,
     "strictNullChecks": true
   },
-  "include": ["./src/**/*.ts", "globals.d.ts"],
+  "include": ["./src/**/*.ts", "globals.d.ts", "typings/**/*"],
   "awesomeTypescriptLoaderOptions": {
     "useBabel": false,
     "useCache": true

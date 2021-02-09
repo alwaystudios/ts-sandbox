@@ -38,6 +38,7 @@
     "wait-for-expect": "^3.0.2"
   },
   "dependencies": {
+    "level": "^6.0.1",
     "p-limit": "^3.1.0",
     "queue-fifo": "^0.2.6",
     "ramda": "^0.27.1",
