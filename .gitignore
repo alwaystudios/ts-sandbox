@@ -2,4 +2,4 @@ node_modules
 dist
 coverage
 src/db
-yarn-error.log
+*.log
