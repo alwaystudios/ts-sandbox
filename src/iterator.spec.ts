@@ -52,7 +52,6 @@ describe('generators', () => {
     while (currCode <= Z_CHAR_CODE) {
       yield String.fromCharCode(currCode++)
     }
-    return
   }
 
   it('generator for..of', () => {

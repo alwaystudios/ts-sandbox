@@ -18,6 +18,7 @@ export class TaskQueuePC<T> extends EventEmitter {
   }
 
   async consumer() {
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       const task = (await this.getNextTask()) as Task<T>
       await task()

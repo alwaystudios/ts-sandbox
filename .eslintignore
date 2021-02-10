@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage 
+jest.config.js
+setup-jest.js
+src/globals.d.ts
+*.spec.*
