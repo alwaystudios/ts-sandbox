@@ -19,13 +19,13 @@ export class SubsetSumThreads extends EventEmitter {
     const worker = await workers.acquire()
     worker.postMessage({ sum: this.#sum, set: this.#set })
 
-    const onMessage = (msg: any) => {
-      if (msg.event === 'end') {
+    const onMessage = ({ event, data }: { event: string; data: number[] }) => {
+      if (event === 'end') {
         worker.removeListener('message', onMessage)
         workers.release(worker)
       }
 
-      this.emit(msg.event, msg.data)
+      this.emit(event, data)
     }
 
     worker.on('message', onMessage)

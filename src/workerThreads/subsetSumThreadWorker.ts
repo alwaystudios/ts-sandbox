@@ -5,16 +5,15 @@ if (!parentPort) {
   throw new Error('unexpected null parent port')
 }
 
-parentPort.on('message', (msg: any) => {
-  console.log(`message: ${msg}`)
-  const subsetSum = new SubsetSum(msg.sum, msg.set)
+parentPort.on('message', ({ sum, set }: { sum: number; set: number[] }) => {
+  const subsetSum = new SubsetSum(sum, set)
 
-  subsetSum.on('match', (data: any) => {
+  subsetSum.on('match', (data: number[]) => {
     parentPort!.postMessage({ event: 'match', data })
   })
 
-  subsetSum.on('end', (data: any) => {
-    parentPort!.postMessage({ event: 'end', data })
+  subsetSum.on('end', () => {
+    parentPort!.postMessage({ event: 'end' })
   })
 
   subsetSum.process()
