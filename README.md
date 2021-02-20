@@ -1,11 +1,5 @@
 # ts-sandbox
 
-## todo
-
-- chapter 11 - worker threads
-- chapter 12 - scaling with cluster module
-- chapter 12 - portfinder
-
 ## links
 
 - tsdef - https://github.com/joonhocho/tsdef/blob/master/src/index.ts
