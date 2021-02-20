@@ -2,7 +2,6 @@
 
 ## todo
 
-- chapter 11 - local initialization check
 - chapter 11 - worker threads
 - chapter 12 - scaling with cluster module
 - chapter 12 - portfinder

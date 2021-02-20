@@ -1,5 +1,5 @@
-const createConnectionPool = require('@databases/mysql')
-const { sql } = require('@databases/mysql')
+import createConnectionPool from '@databases/mysql'
+import { sql } from '@databases/mysql'
 
 const asyncGeneratoryDbCursor = async () => {
   const db = createConnectionPool('mysql://root:secret@localhost:33061/recipemanager')
