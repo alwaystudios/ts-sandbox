@@ -7,6 +7,7 @@
   "scripts": {
     "mem-leak-test": "ts-node --files --project tsconfig.json src/promiseMemoryLeaks",
     "cluster": "ts-node --files --project tsconfig.json src/httpCluster",
+    "threads": "WATCH_MODE=true nodemon --exec 'ts-node --files --project tsconfig.json' src/workerThreads/index.ts",
     "test": "jest maxWorkers=4 src",
     "lint": "yarn eslint . --ext .ts",
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
@@ -33,6 +34,7 @@
     "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
