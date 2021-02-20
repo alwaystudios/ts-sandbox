@@ -21,19 +21,25 @@ class DB extends EventEmitter {
   }
 }
 
-const db = new DB()
+describe('local initialization check', () => {
+  beforeEach(jest.resetAllMocks)
 
-async function queryTest() {
-  if (!db.connected) {
-    await once(db, 'connected')
-  }
+  test('with check', async () => {
+    const db = new DB()
+    db.connect()
+    if (!db.connected) {
+      await once(db, 'connected')
+    }
+    await db.query(`select * from recipes`)
 
-  await db.query(`select * from recipes`)
-}
+    expect(mockDbQuery).toHaveBeenCalledTimes(1)
+    expect(mockDbQuery).toHaveBeenCalledWith('select * from recipes')
+  })
 
-test('local initialization check', async () => {
-  db.connect()
-  await queryTest()
-  expect(mockDbQuery).toHaveBeenCalledTimes(1)
-  expect(mockDbQuery).toHaveBeenCalledWith('select * from recipes')
+  test('without check', async () => {
+    const db = new DB()
+    db.connect()
+    await expect(db.query(`select * from recipes`)).rejects.toEqual(new Error('Not connected yet'))
+    expect(mockDbQuery).not.toHaveBeenCalled()
+  })
 })
