@@ -23,7 +23,7 @@ export class ThreadPool {
     this.#waiting = []
   }
 
-  acquire() {
+  acquire(): Promise<Worker> {
     return new Promise((resolve: Resolve, reject: Reject) => {
       let worker: Worker | undefined
       if (this.#pool.length) {
@@ -36,7 +36,8 @@ export class ThreadPool {
       }
 
       if (this.#active.length >= this.#poolMax) {
-        return this.#waiting.push({ resolve, reject })
+        this.#waiting.push({ resolve, reject })
+        return
       }
 
       worker = new Worker(this.#file)
@@ -55,7 +56,7 @@ export class ThreadPool {
     })
   }
 
-  release(worker: Worker) {
+  release(worker: Worker): void {
     if (this.#waiting.length) {
       const waitingPromise = this.#waiting.shift()
       if (!waitingPromise) {
