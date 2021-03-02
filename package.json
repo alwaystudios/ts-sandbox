@@ -9,6 +9,7 @@
     "cluster": "ts-node --files --project tsconfig.json src/httpCluster",
     "threads": "WATCH_MODE=true nodemon --exec 'ts-node --files --project tsconfig.json' src/workerThreads/index.ts",
     "test": "jest maxWorkers=4 src",
+    "watch": "jest --watch",
     "lint": "yarn eslint . --ext .ts",
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
     "build": "tsc --project tsconfig.json",
@@ -44,6 +45,7 @@
   },
   "dependencies": {
     "@databases/mysql": "^5.0.0",
+    "json-rules-engine": "^6.0.0",
     "level": "^6.0.1",
     "p-limit": "^3.1.0",
     "portfinder": "^1.0.28",
