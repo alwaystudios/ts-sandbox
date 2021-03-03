@@ -9,6 +9,6 @@ const asyncGeneratoryDbCursor = async () => {
   }
 }
 
-test('async generator cursor', async () => {
+test.skip('async generator cursor', async () => {
   await asyncGeneratoryDbCursor()
 })

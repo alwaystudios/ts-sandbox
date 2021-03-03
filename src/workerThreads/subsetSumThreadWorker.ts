@@ -1,5 +1,5 @@
 import { parentPort } from 'worker_threads'
-import { SubsetSum } from './subsetSum'
+import { SubsetSum } from './SubsetSum'
 
 if (!parentPort) {
   throw new Error('unexpected null parent port')
