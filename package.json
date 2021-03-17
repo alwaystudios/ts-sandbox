@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "mem-leak-test": "ts-node --files --project tsconfig.json src/promiseMemoryLeaks",
+    "nlp": "ts-node --files --project tsconfig.json src/predict/predict.cmd",
     "cluster": "ts-node --files --project tsconfig.json src/httpCluster",
     "threads": "WATCH_MODE=true nodemon --exec 'ts-node --files --project tsconfig.json' src/workerThreads/index.ts",
     "test": "jest maxWorkers=4 src",
@@ -47,6 +48,7 @@
     "@databases/mysql": "^5.0.0",
     "json-rules-engine": "^6.0.0",
     "level": "^6.0.1",
+    "node-nlp": "^4.21.3",
     "p-limit": "^3.1.0",
     "portfinder": "^1.0.28",
     "queue-fifo": "^0.2.6",
