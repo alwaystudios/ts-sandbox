@@ -8,16 +8,16 @@ const rl = readline.createInterface({
 })
 
 const manager = new NlpManager({ languages: ['en'], forceNER: true })
-manager.addDocument('en', 'peel carrot', 'veg.carrot')
-manager.addDocument('en', 'peel chop potato', 'veg.potato')
-manager.addDocument('en', 'pan heat', 'cooking')
-manager.addDocument('en', 'boil', 'cooking')
+manager.addDocument('en', 'peel carrot', 'veg.prep')
+manager.addDocument('en', 'peel chop potato potatoes', 'veg.prep')
+manager.addDocument('en', 'pan heat hob fry', 'cooking.frying')
+manager.addDocument('en', 'boil make water hot kettle', 'cooking.kettle')
 manager.addDocument('en', 'cook beef', 'meat')
 
-manager.addAnswer('en', 'cooking', 'boil a kettle')
-manager.addAnswer('en', 'cooking', 'heat a large wide based pan')
-manager.addAnswer('en', 'veg.carrot', 'top tail and peel the carrots')
-manager.addAnswer('en', 'veg.potato', 'peel and roughly chop the potatoes')
+manager.addAnswer('en', 'cooking.kettle', 'boil a kettle')
+manager.addAnswer('en', 'cooking.frying', 'heat a large wide based pan')
+manager.addAnswer('en', 'veg.prep', 'top tail and peel the carrots')
+manager.addAnswer('en', 'veg.prep', 'peel and roughly chop the potatoes')
 manager.addAnswer('en', 'meat', 'cook the beef until browned')
 
 const processText = async () => {
