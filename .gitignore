@@ -4,3 +4,4 @@ coverage
 src/db
 *.log
 *.gz
+*secret*
