@@ -28,7 +28,7 @@ describe('rules engine', () => {
         name: 'beef curry',
         cuisine: 'indian',
         ingredients: ['rice', 'curry powder', 'beef'],
-        proteinSource: 'beef',
+        proteinSource: 'minced beef',
         category: 'lean in 15',
       })
 
@@ -72,7 +72,7 @@ describe('rules engine', () => {
         name: 'beef curry',
         cuisine: 'indian',
         ingredients: ['rice', 'curry powder', 'beef'],
-        proteinSource: 'beef',
+        proteinSource: 'minced beef',
         category: 'lean in 15',
       })
 
@@ -113,7 +113,7 @@ describe('rules engine', () => {
         name: 'beef curry',
         cuisine: 'indian',
         ingredients: ['rice', 'curry powder', 'beef'],
-        proteinSource: 'beef',
+        proteinSource: 'minced beef',
         category: 'easy',
       })
 
@@ -154,7 +154,7 @@ describe('rules engine', () => {
         name: 'beef curry',
         cuisine: 'indian',
         ingredients: ['rice', 'curry powder', 'beef', 'eggs'],
-        proteinSource: 'beef',
+        proteinSource: 'minced beef',
         category: 'lean in 15',
       })
 
