@@ -54,3 +54,7 @@ Number.prototype.customMethod = () => 'custom function'
 test('augmented interface', () => {
   expect(new Number(22).customMethod()).toEqual('custom function')
 })
+
+// interfaces you can't construct a composed type e.g. you can't do this
+type Test = Number & { test: string }
+// inferface TestWontCompile = Number & { test: string }
