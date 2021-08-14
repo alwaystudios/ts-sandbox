@@ -14,12 +14,12 @@ class DB extends EventEmitter {
     }, 500)
   }
 
-  async query(queryString: string): Promise<string[]> {
+  query(queryString: string) {
     if (!this.connected) {
       this.emit('error', new Error('Not connected'))
-      return []
+      return
     }
-    return mockDbQuery(queryString)
+    mockDbQuery(queryString).then((data) => this.emit('data', data))
   }
 }
 
@@ -27,32 +27,29 @@ describe('local initialization check', () => {
   beforeEach(jest.clearAllMocks)
 
   test('with check', async () => {
+    const onData = jest.fn()
     const db = new DB()
+    db.on('data', onData)
     db.connect()
     if (!db.connected) {
       await once(db, 'connected')
     }
-    const results = await db.query(`select * from foods`)
+    db.query(`select * from foods`)
 
-    expect(results).toEqual(foods)
+    await once(db, 'data')
+
+    expect(onData).toHaveBeenCalledTimes(1)
+    expect(onData).toHaveBeenCalledWith(foods)
     expect(mockDbQuery).toHaveBeenCalledTimes(1)
     expect(mockDbQuery).toHaveBeenCalledWith('select * from foods')
   })
 
-  test('without check no event listener', async () => {
-    const db = new DB()
-    db.connect()
-    await expect(db.query(`select * from foods`)).rejects.not.toBeUndefined()
-    expect(mockDbQuery).not.toHaveBeenCalled()
-  })
-
-  test('without check with event listener', async () => {
+  test('without check', () => {
     const db = new DB()
     const errorMock = jest.fn()
     db.on('error', errorMock)
     db.connect()
-    const results = await db.query(`select * from foods`)
-    expect(results).toEqual([])
+    db.query(`select * from foods`)
     expect(mockDbQuery).not.toHaveBeenCalled()
     expect(errorMock).toHaveBeenCalledTimes(1)
     expect(errorMock).toHaveBeenCalledWith(new Error('Not connected'))
