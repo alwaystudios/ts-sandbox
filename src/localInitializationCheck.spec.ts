@@ -1,6 +1,7 @@
 import { EventEmitter, once } from 'events'
 
-const mockDbQuery = jest.fn()
+const foods = ['ham', 'cheese', 'eggs', 'butter', 'onions']
+const mockDbQuery: (query: string) => Promise<string[]> = jest.fn().mockResolvedValue(foods)
 
 class DB extends EventEmitter {
   connected = false
@@ -13,16 +14,17 @@ class DB extends EventEmitter {
     }, 500)
   }
 
-  async query(queryString: string) {
+  async query(queryString: string): Promise<string[]> {
     if (!this.connected) {
-      throw new Error('Not connected yet')
+      this.emit('error', new Error('Not connected'))
+      return []
     }
-    mockDbQuery(queryString)
+    return mockDbQuery(queryString)
   }
 }
 
 describe('local initialization check', () => {
-  beforeEach(jest.resetAllMocks)
+  beforeEach(jest.clearAllMocks)
 
   test('with check', async () => {
     const db = new DB()
@@ -30,16 +32,29 @@ describe('local initialization check', () => {
     if (!db.connected) {
       await once(db, 'connected')
     }
-    await db.query(`select * from recipes`)
+    const results = await db.query(`select * from foods`)
 
+    expect(results).toEqual(foods)
     expect(mockDbQuery).toHaveBeenCalledTimes(1)
-    expect(mockDbQuery).toHaveBeenCalledWith('select * from recipes')
+    expect(mockDbQuery).toHaveBeenCalledWith('select * from foods')
   })
 
-  test('without check', async () => {
+  test('without check no event listener', async () => {
     const db = new DB()
     db.connect()
-    await expect(db.query(`select * from recipes`)).rejects.toEqual(new Error('Not connected yet'))
+    await expect(db.query(`select * from foods`)).rejects.not.toBeUndefined()
     expect(mockDbQuery).not.toHaveBeenCalled()
+  })
+
+  test('without check with event listener', async () => {
+    const db = new DB()
+    const errorMock = jest.fn()
+    db.on('error', errorMock)
+    db.connect()
+    const results = await db.query(`select * from foods`)
+    expect(results).toEqual([])
+    expect(mockDbQuery).not.toHaveBeenCalled()
+    expect(errorMock).toHaveBeenCalledTimes(1)
+    expect(errorMock).toHaveBeenCalledWith(new Error('Not connected'))
   })
 })
