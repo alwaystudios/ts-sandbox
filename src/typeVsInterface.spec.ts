@@ -58,3 +58,8 @@ test('augmented interface', () => {
 // interfaces you can't construct a composed type e.g. you can't do this
 type Test = Number & { test: string }
 // inferface TestWontCompile = Number & { test: string }
+
+// but you can extend interfaces (and you can extend to use multiple interfaces)
+interface MyTest extends Test {
+  myTest: number
+}
